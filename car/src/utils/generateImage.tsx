@@ -1,5 +1,6 @@
 //Aracin fotograflari url lerini olusturcaz
 
+import { colors } from "../constants";
 import { CarType } from "../types";
 
 export const generateImage = (car: CarType, angle?: string) => {
@@ -14,7 +15,13 @@ export const generateImage = (car: CarType, angle?: string) => {
  if(angle) {
     url.searchParams.append('angle', angle)
  }
-//olusturdugujmujz url i fonksiyionun cagirdigi yere dondur
+
+//renk her url olustuguinda rastgele bir renk belirlemek 
+const idx = Math.floor( Math.random() * colors.length);
+
+url.searchParams.append('paintId', colors[idx])
+
+ //olusturdugujmujz url i fonksiyionun cagirdigi yere dondur
   return url.href;
 
 };

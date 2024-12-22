@@ -4,8 +4,9 @@ import Hero from "../components/Hero";
 import SearchBar from "../components/SearchBar";
 import { fetchCars } from "../utils/fetchCars";
 import type { CarType } from "../types";
-import { div, h1 } from "framer-motion/client";
+import { div, h1, use } from "framer-motion/client";
 import Card from "../components/Card";
+import { useSearchParams } from "react-router-dom";
 
 const MainPage = () => {
   //useState biden state dde tutacagimiz verinin tipnini ister
@@ -13,11 +14,17 @@ const MainPage = () => {
   const [cars, setCars] = useState<CarType[] | null>(null);
   const [isError, setIsError] = useState<boolean>(false);
 
+  //arama parametrelrine ulasma
+  const [params] = useSearchParams();
+
   useEffect(() => {
-    fetchCars()
+    //URL deki butun arama paramatrelerini objeye cevierdik.
+    const paramsObj =  Object.fromEntries(params.entries());
+
+    fetchCars(paramsObj)
       .then((data) => setCars(data))
       .catch(() => setIsError(true));
-  }, []);
+  }, [params]);
 
   return (
     <div>

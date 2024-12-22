@@ -7,10 +7,15 @@ const options = {
     "x-rapidapi-host": "cars-by-api-ninjas.p.rapidapi.com",
   },
 };
+type FilterType = {
+  make?: string;
+  model?: string;
+};
 
-export async function fetchCars():Promise<CarType[]> {
+export async function fetchCars(filters: FilterType): Promise<CarType[]> {
+  const { make = "bmw", model='m3' } = filters;
   const res = await fetch(
-    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=m3`,
+    `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${make}&modelFamily=${model}`,
     options
   );
   const data = await res.json();
