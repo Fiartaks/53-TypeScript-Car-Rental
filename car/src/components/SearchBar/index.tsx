@@ -2,6 +2,7 @@ import ReactSelect from "react-select";
 import { makes } from "../../constants";
 import { useMemo, useState, type FormEvent } from "react";
 import { useSearchParams } from "react-router-dom";
+import type { OptionType } from "../../types";
 
 //1.Bilesen
 const SearchButton = ({ designs }: { designs: string }) => (
@@ -12,14 +13,9 @@ const SearchButton = ({ designs }: { designs: string }) => (
 //2.bilesen
 const SearchBar = () => {
   const [model, setModel] = useState<string>("");
-  const [make, setMake] = useState<string >("");
+  const [make, setMake] = useState<string>("");
 
-  const[searchParams, setSearchParams]= useSearchParams()
-
-  type OptionType = {
-    value: string;
-    label: string;
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
 
   //benden istenen
   // const options = [
@@ -44,14 +40,15 @@ const SearchBar = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearchParams({make,model})
+    setSearchParams({ make, model });
   };
 
   return (
     <form onSubmit={handleSubmit} className="searchbar gap-3">
       <div className="searchbar__item">
         <ReactSelect
-          onChange={(e) =>e && setMake(e.value)}
+          defaultInputValue={searchParams.get("make")!}
+          onChange={(e) => e && setMake(e.value)}
           className=" w-full text-black"
           options={options}
         />
@@ -65,6 +62,7 @@ const SearchBar = () => {
           className="absolute ml-4"
         />
         <input
+          defaultValue={searchParams.get("model")!}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setModel(e.target.value)
           }

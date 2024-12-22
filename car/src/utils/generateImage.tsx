@@ -8,7 +8,7 @@ export const generateImage = (car: CarType, angle?: string) => {
 
   url.searchParams.append("customer", "hrjavascript-mastery");
   url.searchParams.append("make", car.make);
-  url.searchParams.append("modelFamily", car.model);
+  url.searchParams.append("modelFamily", car.model.split("/")[0]);
   url.searchParams.append('zoomType', 'fullscreen')
 
 

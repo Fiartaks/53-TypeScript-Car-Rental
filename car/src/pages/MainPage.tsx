@@ -7,6 +7,9 @@ import type { CarType } from "../types";
 import { div, h1, use } from "framer-motion/client";
 import Card from "../components/Card";
 import { useSearchParams } from "react-router-dom";
+import ShowMore from "../components/ShowMore";
+import { fuels, years } from "../constants";
+
 
 const MainPage = () => {
   //useState biden state dde tutacagimiz verinin tipnini ister
@@ -40,8 +43,8 @@ const MainPage = () => {
         <div className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <CustomFilter />
-            <CustomFilter />
+            <CustomFilter paramName={'fuel_type'} title='Yakit Tipi' options={fuels}/>
+            <CustomFilter paramName={'year'} title='Üretim Yılı' options={years} />
           </div>
         </div>
 
@@ -71,6 +74,8 @@ const MainPage = () => {
                 <Card key={i} car={car} />
               ))}
             </div>
+
+            <ShowMore />
           </section>
         )}
       </div>
